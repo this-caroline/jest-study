@@ -1,4 +1,5 @@
 import functions from './js/functions'
+import mockAxios from 'axios'
 
 test('2 + 2 is 4', () =>{
     expect(functions.add(2,2)).toBe(4)
@@ -34,9 +35,14 @@ test('Admin should be in username', () => {
     const usernames = ['joão', 'carina', 'admin']
     expect(usernames).toContain('admin')
 })
-
 test('Fetch username on API', async () => {
-    expect.assertions(1)
+    // expect.assertions(1)
+    mockAxios.get.mockImplementationOnce(() => Promise.resolve({
+        data: {
+            username: 'Bret'
+        }
+    }))
+
     const data = await functions.fetchUser()
     expect(data.username).toEqual('Bret')
 })
